@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<!--
+Welcome to GitKA, your best collaboration app ever on khan academy
+Spin-off to get started
+Then on the thread of the T&T post a submit thread
+Then get its expand key and put it in the expand key variable and fill all other variables
+Thanks :)
+------------------------------------------------------------------
+File Format: 
+    Add file:
+        --gitKA add 'name' 'link' 
+    Pull Request:
+        --gitKA req 'fileN' 'id' 'revisedLink'~reason
+    Request Denied:
+        --gitKA den 'id'~reason
+    Request Accepted:
+        --gitKA acc 'id'
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>GitKA || Collaboration made easy</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        <style>
+            body{
+                cursor:pointer;
+                font-family: 'Montserrat', sans-serif;
+                background-color:rgb(56, 53, 56);
+            }
+            #nav{
+                color:white;
+                position:absolute;
+                top:0px;
+                left:0px;
+                width:595px;
+                height:49px;
+                background-color:black;
+            }
+            #shine{
+                text-shadow: 0px 0px rgb(255, 255, 255);
+                position:absolute;
+                top:10px;
+                left:27px;
+                font-size:21px;
+            }
+            #shine:hover{
+                text-shadow: 0px 0px 7px rgb(255, 255, 255);
+            }
+            #homeNav{
+                position:relative;
+                top:15px;
+                left:281px;
+            }
+            #guideNav{
+                position:relative;
+                top:15px;
+                left:310px;
+            }
+            #useNav{
+                background:linear-gradient(to right,rgb(255, 140, 0), rgb(250, 35, 35));
+                padding:6px;
+                border-radius:4px;
+                position:relative;
+                top:15px;
+                left:325px;
+                font-size:15px;
+            }
+            .scene{
+                cursor:auto;
+                padding:17px;
+                transform:translate(0px,40px);
+                color:white;
+            }
+            footer{
+                color:white;
+                transform:translate(-6px,40px);
+                background-color:black;
+                padding:20px;
+                margin:0px;
+                width:551px;
+            }
+            footer a{
+                color:white;
+            }
+            #guide{
+                color:black;
+                background-color:white;
+            }
+            #nameRepo{
+                padding:17px;
+                transform:translate(0px,0px);
+                color:white;
+            }
+            th{
+                margin:0px;
+                padding:5px;
+            }
+            td,th{
+                padding-left:50px;
+                padding-right:50px;
+            }
+            table .material-icons{
+                vertical-align:sub;
+            }
+            td{
+                margin:0px;
+                padding:5px;
+                text-align: center;
+            }
+            tr{
+                margin:0px;
+            }
+            table{
+                margin:0px;
+                cursor:default;
+                color:rgb(214, 214, 214);
+                background-color:rgb(56, 53, 56);
+                border-radius:3px;
+                border:2px rgb(99, 98, 99) solid;
+            }
+            tr:hover{
+               background-color:rgba(107, 107, 107,0.2); 
+            }   
+            a{
+                color:blue;
+            }
+            #read{
+                padding:10px;
+                color:rgb(214, 214, 214);
+                width:361px;
+                border:1px black solid;
+            }
+            .few{
+                color:rgb(214, 214, 214);
+                position:relative;
+                top:-23px;
+                font-size:20px;
+                left:173px;
+                border-radius:50%;
+                cursor:pointer;
+            }
+            .few:hover{
+                background-color:rgba(201, 201, 201,0.2);
+            }
+            #goTo .material-icons{
+                position:relative;
+                top:4px;
+                vertical-align:sub;
+            } 
+            #goTo{
+                padding:0px;
+                padding-bottom:8px;
+                padding-left:12px;
+                padding-right:12px;
+                height:37px;
+                border-radius:5px;
+                border:1px black solid;
+                background:linear-gradient(to right,rgb(0, 72, 255),rgb(255, 0, 174));
+                font-weight:bold;
+                color:white;
+            }
+            #y{
+                cursor:pointer;
+                color:rgb(214, 214, 214);
+            }
+            #y:hover{
+                padding:3px;
+                border-radius:50%;
+                background-color:rgba(102, 100, 102,0.4);
+            }
+            .view{
+                position:relative;
+                top:4px;
+                color:white;
+            }
+            #showCode{
+                transform:translate(0px,40px);
+                color:white;
+            }
+            #showCode .material-icons{
+                padding:3px;
+                vertical-align:bottom;
+                color:white;
+            }
+            #showCode .material-icons:hover{
+                border-radius:50%;
+                padding:3px;
+                background-color:rgba(148, 148, 148);
+            
+            }
+            #theCode{
+                background-color:white;
+                color:black;
+                width:550px;
+                font-family:monospace;
+                overflow:scroll;
+            }
+            #reqPull .material-icons{
+                padding:4px;
+                cursor:pointer;
+            }
+            #reqPull .material-icons:hover{
+                border-radius:50%;
+                background-color:rgba(255, 255, 255,0.3);
+            }
+            #lg .material-icons{
+                padding:4px;
+                cursor:pointer;
+            }
+            #lg .material-icons:hover{
+                border-radius:50%;
+                background-color:rgba(255, 255, 255,0.3);
+            }
+            #addFile{
+                border:1px white solid;
+            }    
+            #adBut{
+                font-weight:bold;
+                color:black;
+                border-radius:9px;
+                border:1px black solid;
+                padding:10px;
+                padding-left:15px;
+                padding-right:15px;
+                background:linear-gradient(to right,rgb(63, 255, 15),rgb(0, 255, 162));
+                position:relative;
+                left:85px;
+                margin:3px;
+            }
+            #pullBut{
+                font-weight:bold;
+                color:black;
+                border-radius:9px;
+                border:1px black solid;
+                padding:10px;
+                padding-left:15px;
+                padding-right:15px;
+                background:linear-gradient(to right,rgb(255, 15, 171),rgb(255, 0, 0));
+                position:relative;
+                left:85px;
+                margin:3px;
+            }
+            #lgBut{
+                font-weight:bold;
+                color:black;
+                border-radius:9px;
+                border:1px black solid;
+                padding:10px;
+                padding-left:15px;
+                padding-right:15px;
+                background:linear-gradient(to right,rgb(255, 255, 0),rgb(247, 255, 254));
+                position:relative;
+                left:85px;
+                margin:3px;
+            }
+            #reqPull{
+                transform:translate(0px,59px);
+                color:white;
+            }
+            #reqBut{
+                color:white;
+                background-color:green;
+            }
+            .logger{
+                padding:10px;
+                padding-left:100px;
+                border-radius:7px;
+                border:1px white solid;
+                color:white;
+            }
+            .aImg{
+                background-color:rgb(207, 207, 207);
+                width:50px;
+                position:relative;
+                left:-89px;
+                top:20px;
+                border:2px black solid;
+                border-radius:50%;
+                padding:4px;
+            }
+            #gNav{
+                background:linear-gradient(to right,rgb(255, 140, 0), rgb(250, 35, 35));
+                padding:6px;
+                border-radius:4px;
+                position:relative;
+                top:15px;
+                left:224px;
+                font-size:15px;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="nav">
+        <span id="shine">GitKA</span>
+        <span id="homeNav" onclick='changePage(0);'>Home</span>
+        <span id="guideNav" onclick='changePage(1);'>GitKA Guides</span>
+        <span id="useNav" onclick='changePage(2);'>Get Started</span>
+    </div>
+    <div id='home' class='scene'>
+        <center><h1>GitKA</h1></center><br>
+        <center><u><h3>Home</h3></u></center>
+    Welcome to GitKA, a game changing program on KA to help people trying to collab in small groups to systematically collab.<br>This website tries to recreate the ease of collabing on GitHub but may not be as good due to restrictions on servers on KA. 
+    <br><br>This program was created for Primavera......<br><br>You might want to read through the guides first before starting out
+    </div><!--Home-->
+    
+    <div id='guide' class='scene'>
+        <center><h1>GitKA</h1></center><br>
+        <center><u><h3>The Guide</h3></u>
+        Welcome to the guides !!
+        <br>Here you will be learning some basic concepts regarding GitKA
+        <br><br>
+        <details>
+        <summary>What is GitKA ?</summary>
+        GitKA is a program that tries to make the collabing on KA easier
+        </details>
+        <details>
+        <summary>How to use it ?</summary>
+        In GitKA there are a few things to remember... only the owner of the program can control changes being made to the file. So to request the owner to make changes, you need to submit a pull request in the appropriate thread in the T&T. To learn more make a spin-off of this project and then see the below questions. If you are starting a collab then spin-of of this program and then complete the basic variables form in the first script tag ( about line 427).
+        </details>
+        <details>
+            <summary>What is a pull request ?</summary>
+            When you want to change something in the files the owner has posted one must submit a pull request. The owner can either accept or deny your request.
+        </details>
+        <details>
+            <summary>Can unkown users change stuff by posting in the thread ?</summary>
+            No. Only users mentioned in the memberKaid variable can request changes and only the owner can accept, deny or add files
+        </details>
+        <details>
+            <summary>How can the owner delete a file</summary>
+            He or she must delete the comment which added the file :)
+        </details>
+        <details>
+            <summary>Can I make someone else the owner ?</summary>
+            Yes ! GitKA is very flexible. You can give another person the right to add or delete files by putting their Kaid in the ownerKaid variable instead of yours. The only thing is the you cannot make two people the owners. [This is for security concerns].
+            
+        </details>
+        <details>
+            <summary>How many people can I make members of the collab ?</summary>
+            As many as you want :P
+        </details>
+        </center>
+    </div><!--Use guide-->
+    
+    
+    <div id='use' class='scene'>
+        <div id="bell" style="transform:translate(0,7px);cursor:pointer;" onclick="changePage(4)" class="material-icons">notifications</div>
+        <center><h1><div id="nameRepo">Repo name:</div></h1></center><button id="adBut">Add a File</button><button id="pullBut" onclick="showOps();">Submit a Pull Request</button><button onclick="changePage(4)" id="lgBut">Log</button>
+        <center>
+            <div id='addFile'>
+            
+                <h3>Add a file</h3>
+                <tt>
+                <form>
+                <label>Enter Name of the file </label><input type='text' id='yay'><br><br>
+                <label>Enter The Link where the file is located  </label><input type='text' id='yay1'><br><br>
+                <label style="color:red;">Warning: Only the owner of this program can post files. If anyone else posts the code in the T&T the file will not be accepted</label>
+                </form><br><br>
+                <button id='la' onclick="subFile();">Submit</button><br>
+                </tt>
+            <br></div></center>
+        <center>
+            <br>
+            <div id="fileContents">
+            <tt><table>
+                <thead>
+                    <tr>
+                        <th>File name</th>
+                        <th>Time Posted</th>
+                    </tr>
+                </thead>
+                <tbody id="fileTable">
+                    
+                </tbody>
+            </table></tt>
+            </div>
+        </center><br><br>
+        <center>
+        <div id='read'>
+            <div style='text-align:left;'><tt><b>README.MD</b></tt></div><br><div id="y" style='position:relative;top:-40px;left:164px;font-size:20px' class='material-icons'>edit</div><br>No README file added
+        </div><!--README Space-->
+        <div id="yab">
+            
+        </div>
+        </center>
+    </div><!--The main stuff-->
+    <div id="showCode">
+        <center><h2><div class="material-icons">code</div>&nbsp;&nbsp;File Name: <span id="nachmittag"></span></h2></center>
+        <div class="material-icons" onclick='back()'>arrow_back</div><br>
+        <pre id="theCode"></pre>
+    </div><!--Show code page-->
+    <div style="color:white;" id="reqPull" class="scene">
+       <div class="material-icons" style="transform:translate(0,50px);" onclick="changePage(2)">arrow_back</div><center><h2>Pull Request:</h2></center>
+       <details>
+           <summary>What is a pull request ?</summary>
+           When you want to change some code but cannot because you aren't the author... You must submit a pull request and wait for the owner to approve
+       </details><br><br>
+       <center>
+       <button id="reqBut" onclick="$('#pullForm').toggle();;showOps();">Request some changes to a program</button><br><br>
+       <form id="pullForm">
+           <label>Name the program you want to change: </label>
+           <input id="ro" list='files1'><br><br>
+           <label>Pls post the revised link to the program code: </label><input id="ro1"><br><br>
+           <label>Pls post the the reason you are suggesting this change: </label><input id="ro2" placeholder="Do not post a ~ at all "><br>
+           <label style="color:red">Warning: Only users authorised by the owner of this program will be allowed to post pull requests...If anyone else tries the program wont accept it. Pls check if you KAID is there in the memberKAIDS variable on line 329</label>
+           <br><button id='so'>Submit</button>
+           <datalist id="files1">
+               
+           </datalist>
+       </form>
+       </center>
+    </div><!--Pull Page-->
+    <div id="lg" class="scene">
+    <div class="material-icons" style="transform:translate(0,60px);" onclick="changePage(2);$('#bell').css('color','white');$('#bell').text('notifications')">arrow_back</div><center style="color:white;"><h1 >Log</h1>
+       <ul id='log'>
+           
+       </ul></center>
+    </div><!--Log-->
+    <br><br><br><br>
+    <footer><center><a href="#nav">Jump to top ?</a></center>
+        <br>Creator:@Liftoff&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copyright@2021<br><br><center>This is an attempt to create a github of KA. Pls do provide feedback in the T&T</center>
+    </footer>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+    <script>
+        /** Basic Variables to be filled **/
+        var ownerKaid = "kaid_453294766634000180234946";//Put your KAid here
+        var pullRequestComms = "ag5zfmtoYW4tYWNhZGVteXJpCxIIVXNlckRhdGEiRnVzZXJfaWRfa2V5X2h0dHA6Ly9pZC5raGFuYWNhZGVteS5vcmcvODg2MDZiZDRjMDJmNDg1YjkwYzg5NjUyYmVkZTE4MTkMCxIIRmVlZGJhY2sYgID94L6y1QgM";//This is the expand key of your request thread
+        var memberKaids = ["kaid_453294766634000180234946"];//add the KAids of the members in your collab
+        var name1 = "Hello World";//Name of the project repositery
+    
+    
+    
+        /**Dont do anything after this line**/
+        $("#nameRepo").html('Repo Name:&nbsp; '+name1);
+        $("#pullForm").hide();
+    </script><!--Fill the variables inside this tag-->
+    <script>
+        /**The function two **/
+        function showOps(){
+            $.getJSON("https://www.khanacademy.org/api/internal/discussions/"+pullRequestComms+"/replies?format=pretty&callback=?",function(data){
+                $("#files1").html('')
+                for(var i = 0;i<data.length;i++){
+                    if(data[i].content.includes('--gitKA add')&&data[i].authorKaid === ownerKaid){
+                        var zy = data[i].content.split(' ');
+                        $("#files1").append("<option value=\""+zy[2]+"\"")
+                    }
+                }
+            })
+        }
+    
+    
+        var code;
+        function fetchCode(url, callback) {
+           
+            var split = url.split('/');
+            $.getJSON("https://www.khanacademy.org/api/internal/scratchpads/" + split[5] + "?format=pretty&callback=?",function(data){
+               code = data.revision.code;
+               callback(code);
+            });
+        };//Fetches the code for the files
+        function showCode(name,url){
+             $("#nachmittag").text(name)
+             $("#theCode").text('');
+             var split = url.split('/');
+            $.getJSON("https://www.khanacademy.org/api/internal/scratchpads/" + split[5] + "?format=pretty&callback=?",function(data){
+               var x = data.revision.code
+               
+               $("#theCode").text(x);
+               
+               
+            });
+        };//Shows the code for the files
+       
+        $("#adBut").click(function(){
+            $("#addFile").toggle();
+        })
+        $("#addFile").hide();
+        /**Credits to Primavera Program for this **/
+        function copyStringToClipboard (str) {
+           // Create new element
+           var el = document.createElement('textarea');
+           // Set value (string to be copied)
+           el.value = str;
+           // Set non-editable to avoid focus and move outside of view
+           el.setAttribute('readonly', '');
+           el.style = {position: 'absolute', left: '-9999px'};
+           document.body.appendChild(el);
+           // Select text inside element
+           el.select();
+           // Copy text to clipboard
+           document.execCommand('copy');
+           // Remove temporary element
+           document.body.removeChild(el);
+        }
+        
+        /**More functions**/
+        function subFile(){
+            var x = $("#yay").val();
+            var y = $("#yay1").val();
+            var xy = "--gitKA add "+x+" "+y
+            copyStringToClipboard(xy)
+            alert("Copied to clipboard")
+        }
+        $("#showCode").hide(); 
+        function back(){
+            $("#showCode").hide();
+            $("#use").show();
+        }
+        function front(){
+            $("#showCode").show();
+            $("#use").hide();
+        }
+         $("#pullForm").submit(function(e){
+            e.preventDefault();
+            var x = $("#ro").val();
+            var z = $("#ro1").val();
+            var y = $("#ro2").val();
+            var w = Math.floor((Math.random() * 100000000) + 1);
+            var xyz = "--gitKA req "+x+" "+w+" "+z+"~"+y
+            copyStringToClipboard(xyz)
+            alert("Copied")
+            document.getElementById("pullForm").reset();
+        })
+    
+    
+        function reply(id){
+            var x = window.prompt("Do you want to accept or deny the request ? Type 'y' for accepting and 'n' for denying")
+            if(x=="n"){
+            var promp1t = window.prompt("Please Enter A Reason || Dont write anything if you dont have a reason.\nNote: Only owner can post this")
+            if(prompt!=null){
+                var e = "--gitKA den "+id+"~"+promp1t
+                
+                alert("Pls copy '"+e+"' without the quotes and paste into the T&T section made")
+            }
+            }
+            else if(x ==='y'){
+                var z = "--gitKA acc "+id
+                alert("Pls copy '"+z+"' without the quotes and paste into the T&T section made")
+            }
+    }//Function to make replies
+        function fileRepeat(){
+            $.getJSON("https://www.khanacademy.org/api/internal/discussions/"+pullRequestComms+"/replies?format=pretty&callback=?",function(data){
+                var count = 0;
+                $("#log").html('')
+                $("#fileTable").empty()
+                for(var i = 0;i<data.length;i++){
+                    var x = data[i].content
+                    
+                    if(data[i].content.includes("--gitKA add")&&data[i].authorKaid === ownerKaid){
+                        count++
+                        var z = x.split(' ')
+                        var zo = "<tr><td><a target='_blank' href='"+z[3]+"'>"+z[2]+"</a></td>"+ "<td>"+data[i].date+"&nbsp;<span class=\"material-icons view\" onclick='front();showCode(\""+z[2]+"\",\""+z[3]+"\");'>search</span></td></tr>"
+                        $("#fileTable").append(zo)
+                        $("#log").append("<br><br><div class='logger' id=\""+x[3]+"\"><img class='aImg' src=\""+data[i].authorAvatarSrc+"\"><u>"+data[i].authorNickname+"</u> added file: "+z[2]+"<br><br></div>")
+                        
+                        if(z[2] ==="README.MD"){
+                            fetchCode(z[3],function(x){
+                               $("#read").html("<div style='text-align:left;'><tt><b>README.MD</b></tt></div><br><a target='_blank' href=\""+z[3]+"\"><div id=\"y\" style='position:relative;top:-40px;left:164px;font-size:20px' class='material-icons'>edit</div></a><br>"+x )
+                            })
+                        
+                        }
+                    }
+                    
+                    
+                      
+                    if(data[i].content.includes("--gitKA req")&&memberKaids.includes(data[i].authorKaid)){
+                        count++
+                        var z1 = data[i].content.split("~")    
+                        var x = z1[0].split(" ")
+                        $("#log").append("<br><br><div class='logger' id=\""+x[3]+"\"><img class='aImg' src=\""+data[i].authorAvatarSrc+"\"><u>"+data[i].authorNickname+"</u> requested a change in the file: "+x[2]+". The link to the changed program is in <a target='_blank' href=\""+x[4]+"\">this link.</a>&nbsp;&nbsp;&nbsp;<a style='color:rgb(255, 60, 0)' onclick='reply("+x[3]+")'>reply</a></div><br>")
+                        
+                    }
+                    if(data[i].content.includes("--gitKA den")&&data[i].authorKaid===ownerKaid){
+                        count++
+                        var z = data[i].content.split("~")    
+                        var x = z[0].split(" ")
+                        $("#log").append("<br><div class='logger den'><img class='aImg' src=\""+data[i].authorAvatarSrc+"\"><u>"+data[i].authorNickname+"</u> Denied changes to the file proposed in <a href=\"#"+x[2]+"\">this comment </a</div><br>")
+                        
+                    }
+                    if(data[i].content.includes("--gitKA acc")&&data[i].authorKaid===ownerKaid){
+                        count++
+                        var z = data[i].content.split("~")    
+                        var x = z[0].split(" ")
+                        $("#log").append("<br><div class='logger den'><img class='aImg' src=\""+data[i].authorAvatarSrc+"\"><u>"+data[i].authorNickname+"</u> Accepted changes to the file proposed in <a href=\"#"+x[2]+"\">this comment </a</div><br>")
+                        
+                    }
+                    
+                }
+                if(localStorage.getItem("countro")===null){
+                    localStorage.setItem("countro",count)
+                }
+                else if(count>localStorage.getItem("countro")){
+                    localStorage.setItem("countro",count)
+                    $("#bell").css("color","rgb(0, 94, 255)")
+                    $("#bell").text('notifications_active')
+                }
+            })
+    }  //The repetitive function
+        window.setInterval(fileRepeat,5000)//Repeats fileREpeat every 5 seconds   
+        
+        /**Change page function**/
+        var scenes = document.getElementsByClassName('scene');
+        function changePage(index) {
+            ;
+            for (var i = 0; i < scenes.length; i++) {
+                scenes[i].style.display = 'none';
+            }
+            scenes[index].style.display = 'block';
+            window.scrollTo(0,0)
+        };
+        changePage(0)
+    
+        /**Dont know why i wrote this XDXD**/
+        $("#pullBut").click(function(){
+            changePage(3)
+        })
+    </script>
+    </body>
+</html>
